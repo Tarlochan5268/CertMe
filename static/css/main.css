@@ -1,0 +1,45 @@
+/*
+ * Created on Wed Sep 25 2019
+ *
+ * Copyright ©  2019 NarangCo.
+ *
+ * CSS FILE FOR CERTME Project
+ */
+
+ .info
+ {
+    display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+ .social
+ {
+    display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+ .social-icon
+ {
+    display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+ .main-logo
+ {
+    display: flex;
+     justify-content: center;
+     align-items: center;
+     
+ }
+
+ body
+ {
+    font-family: 'Raleway', sans-serif;
+ }
+ 
+ .access-card
+ {
+    padding:5%;
+    box-shadow: 0px 0px 10px darkgray;
+    border-radius: 10px;
+ }
