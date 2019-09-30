@@ -43,3 +43,46 @@
     box-shadow: 0px 0px 10px darkgray;
     border-radius: 10px;
  }
+
+
+
+
+/*http://jsfiddle.net/myajouri/pkm5r/*/
+
+ .heading-text {
+   position: relative;
+}
+
+.heading-text span {
+   background-color: white;
+   color: darkgray;
+   padding-right: 10px;
+}
+
+.heading-text:after {
+   content:"";
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   height: 0.5em;
+   border-top: 1px solid darkgray;
+   z-index: -1;
+}
+
+.box-container
+{
+   display: flex;
+   justify-content: space-between;
+}
+.box
+{
+   text-align: center;
+   border-radius:10px;
+   padding:3% 5%;
+   background-color: lightsalmon;
+}
+.box:nth-child(even)
+{
+   background-color: lightseagreen;
+}

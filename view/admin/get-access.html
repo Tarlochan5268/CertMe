@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>
+            Admin Login
+        </title>
+        <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <center>
+         
+                <table cellspacing="10" >
+                    <tr>
+                        <td>
+                            <label>UserName</label>
+
+                        </td>
+                        <td>
+                            <input type="email" id="email" placeholder="Write Your Email" name="email"/>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                <label>Password</label>
+    
+                            </td>
+                            <td>
+                                <input type="password" id="password" placeholder="Write Your password" name="email"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="button" id="button"  value="Sign In"/>
+                            </td>
+                        </tr>
+                </table>
+                <script>
+                    $("#button").click(function(){
+                        var email = $("#email").val();
+                        var password = $("#password").val();
+
+                        $.ajax(
+                          {
+                                method:"POST",
+                                url:"../../controller/admin/admin-login.php",
+                              data:{email:email, password:password},
+                              success:function(data)
+                              {
+                                  if(data=="1")
+                                  {
+                                        window.opener.location = "/certme/?action=admin-dashboard";
+                                        window.close();
+                                  }
+                                  else{
+                                      alert("Invalid ID or Password");
+                                  }
+                              },
+                              error:function(error)
+                              {
+                                  alert(error);
+                              }
+
+                          }
+                        );
+                    });
+
+                  
+
+                </script>
+        </center>
+    </body>
+</html>
