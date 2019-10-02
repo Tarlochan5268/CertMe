@@ -1,6 +1,7 @@
 <?php
     $servername = "localhost";
     $username = "root";
+    
     $password = "";
     $conn = null;
     try
@@ -36,12 +37,35 @@
             $statement->closeCursor();
             return $result;    
         }
+        function delete()
+        {
+            try
+            {
+            $query = "DELETE FROM customer_test WHERE id = :id";
+            $statement = $conn->prepare($query);
+            $statement->bindValues("id",$this->id);
+            $statement->execute();
+
+            $statement->closeCursor();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            return false;
+        }
+        }
         static function allRows()
         {
 
             global $conn;
             $query = "SELECT * FROM customers";
-            return $conn->query($query);
+            $statement = $conn->prepare($query);
+            $statement->execute();
+
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll();
+            $statement->closeCursor();
+            return $result;
         }
         static function login($email, $password)
         {
@@ -76,6 +100,8 @@
                 $statement->bindValue("email",$this->email);
                 $statement->bindValue("password",$this->password);
                 $statement->execute();
+                $this->id = $conn->lastInsertId();
+
                 $statement->closeCursor();
                 return true;
 
@@ -105,7 +131,8 @@
                 $statement->bindValue("categoryName",$this->categoryName);
                 //echo("ADDED");
                 $statement->execute();
-               
+                $this->id = $conn->lastInsertId();
+                
                 $statement->closeCursor();
                 return true;
 
@@ -123,8 +150,8 @@
             $statement->bindValue("id",$id);
             $statement->execute();
             $result = $statement->fetch();
-            $statement->closeCursor();
            
+            $statement->closeCursor();
             return $result;    
         }
 
@@ -132,8 +159,14 @@
         {
 
             global $conn;
-            $query = "SELECT * FROM test_category";
-            return $conn->query($query);
+            $query = "SELECT * FROM test_category;";
+            $statement = $conn->prepare($query);
+            $statement->execute();
+            //$statement->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            //print_r($result);
+            $statement->closeCursor();
+            return $result;
         }
         static function getObject($id)
         {
@@ -141,13 +174,39 @@
             if($row)
             {
                 $object =  new TestCategory($row[1]);
-                $object->$id = $id;
+                //$object->$id = $id;
+                $object->id = $id;
+                echo("ID IS $object->id");
                 return $object;
             }
             else
             {
                 return null;
             }
+        }
+        function delete()
+        {
+            global $conn;
+            try
+            {
+            $query = "DELETE  FROM test_category WHERE category_id = $this->id";
+            echo($query);
+            /*$statement = $conn->prepare($query);
+            $statement->bindValue("id",$this->id);
+            echo($statement->execute());
+            var_dump($statement);
+            
+            $statement->execute();
+            $statement->closeCursor();*/
+            var_dump($conn->exec($query));
+            
+            return true;
+        }
+        catch(Exception $e)
+        {
+            echo($e->getMessage());
+            return false;
+        }
         }
 
 
@@ -175,7 +234,7 @@
                 $statement->bindValue("testMaxMins",$this->testMaxMins);
                 //echo("ADDED");
                 $statement->execute();
-               
+                $this->id = $conn->lastInsertId();
                 $statement->closeCursor();
                 return true;
 
@@ -202,10 +261,36 @@
 
             global $conn;
             $query = "SELECT * FROM tests";
-            return $conn->query($query);
+            $statement = $conn->prepare($query);
+            $statement->execute();
+
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll();
+            $statement->closeCursor();
+            return $result;
+        }
+
+        function delete()
+        {
+            try
+            {
+            $query = "DELETE FROM tests WHERE id = :id";
+            $statement = $conn->prepare($query);
+            $statement->bindValues("id",$this->id);
+            $statement->execute();
+
+            $statement->closeCursor();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            return false;
+        }
         }
         
     }
+
+
 
 
 

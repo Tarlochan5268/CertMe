@@ -4,11 +4,13 @@
         <div class="col-md-10">
             Tests
             <?php
-                //include("/certme/model/database.php");
-                //<a href="/certme/model/database.php">CLICK</a>
-             //   echo(Test::allRows());
+                include("model/database.php");
+  
+               
+                var_dump(Test::allRows());
+            
             ?>
-            <a href="/certme/model/database.php">CLICK</a>
+            <a href="model/database.php">CLICK</a>
         </div>
         <div class="col-md-1"></div>
     </div>

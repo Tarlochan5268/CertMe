@@ -53,6 +53,16 @@
             }
             include("view/admin/all-tests.php");
         }
+        else if($action == "all-categories")
+        {
+            if(!isset($_SESSION["admin"]))
+            {
+                header("Location: .?action=admin");
+            }
+            include("view/admin/all-categories.php");
+        }
+        
+    
     }
 
     else
