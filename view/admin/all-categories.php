@@ -34,7 +34,7 @@
                     $rows = TestCategory::allRows();
                     foreach($rows as $row)
                     {
-            ?>
+            ?>                                                                     
                     <tr>
                         <td><?php echo($row["category_id"]);?></td>
                         <td><?php echo($row["category_name"]);?></td>

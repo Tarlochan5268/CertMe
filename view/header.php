@@ -91,7 +91,7 @@
                     <a class="nav-link" href=".?action=get-access" >Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="controller/logout.php" >Logout</a>
+                    <a class="nav-link text-danger" href="controller/admin/admin-logout.php" >Logout</a>
                 </li>
                 </ul>
             

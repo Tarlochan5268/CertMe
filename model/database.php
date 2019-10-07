@@ -87,6 +87,22 @@
             }
             //return $result;    
         }
+        static function getObject($id)
+        {
+            $row = Customer::getRow($id);
+            if($row)
+            {
+                $object =  new Test($row[1], $row[3], $row[2],$row[4], $row[5]);
+                //$object->$id = $id;
+                $object->id = $id;
+                //echo("ID IS $object->id");
+                return $object;
+            }
+            else
+            {
+                return null;
+            }
+        }
         public function save()
         {
             global $conn;
@@ -213,12 +229,13 @@
     }
     class Test
     {
-        function __construct($testName, $testCategory, $testDescription, $textMaxMins)
+        function __construct($testName, $testCategory, $testDescription, $textMaxMins, $testMaxQuestions)
         {
             $this->testName = $testName;
             $this->testCategory = $testCategory;
             $this->testDescription = $testDescription;
             $this->testMaxMins  = $textMaxMins;
+            $this->testMaxQuestions = $testMaxQuestions;
         }
         function save()
         {
@@ -226,15 +243,18 @@
             
             try
             {
-                $query = "INSERT INTO tests (test_name, test_description, test_category, test_max_mins) VALUES ( :testName, :testDescription, :testCategory, :testMaxMins)";
+                $query = "INSERT INTO tests (test_name, test_description, test_category, test_max_mins, test_max_questions) VALUES ( :testName, :testDescription, :testCategory, :testMaxMins, :testMaxQuestions)";
                 $statement = $conn->prepare($query);
                 $statement->bindValue("testName",$this->testName);
                 $statement->bindValue("testDescription",$this->testDescription);
-                $statement->bindValue("testCategory",$this->textCategory->id);
+                $statement->bindValue("testCategory",$this->testCategory->id);
                 $statement->bindValue("testMaxMins",$this->testMaxMins);
+                $statement->bindValue("testMaxQuestions",$this->testMaxQuestions);
+
                 //echo("ADDED");
                 $statement->execute();
                 $this->id = $conn->lastInsertId();
+                echo($this->id);
                 $statement->closeCursor();
                 return true;
 
@@ -256,6 +276,22 @@
            
             return $result;    
         }
+        static function getObject($id)
+        {
+            $row = Test::getRow($id);
+            if($row)
+            {
+                $object =  new Test($row[1], $row[3], $row[2],$row[4], $row[5]);
+                //$object->$id = $id;
+                $object->id = $id;
+                //echo("ID IS $object->id");
+                return $object;
+            }
+            else
+            {
+                return null;
+            }
+        }
         static function allRows()
         {
 
@@ -272,9 +308,235 @@
 
         function delete()
         {
+            global $conn;
             try
             {
-            $query = "DELETE FROM tests WHERE id = :id";
+            $query = "DELETE FROM tests WHERE test_id = :id";
+            $statement = $conn->prepare($query);
+            $statement->bindValue("id",$this->id);
+            $statement->execute();
+
+            $statement->closeCursor();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            return false;
+        }
+        }
+        
+    }
+
+    class Question
+    {
+        function __construct($testID, $question)
+        {
+            $this->testID = $testID;
+            $this->question = $question;
+
+        }
+        static function getObject($id)
+        {
+            $row = Question::getRow($id);
+            if($row)
+            {
+                $object =  new Question($row[2], $row[1]);
+                //$object->$id = $id;
+                $object->id = $id;
+                //echo("ID IS $object->id");
+                return $object;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        static function allRows()
+        {
+
+            global $conn;
+            $query = "SELECT * FROM questions";
+            $statement = $conn->prepare($query);
+            $statement->execute();
+
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll();
+            $statement->closeCursor();
+            return $result;
+        }
+        static function getRow($id)
+        {
+            global $conn;
+            $query = "SELECT * FROM questions WHERE question_id = :id";
+            $statement = $conn->prepare($query);
+            $statement->bindValue("id",$id);
+            $statement->execute();
+            $result = $statement->fetch();
+            $statement->closeCursor();
+           
+            return $result;    
+        }
+        function save()
+        {
+            global $conn;
+            
+            try
+            {
+                $query = "INSERT INTO questions (test_id, question) VALUES ( :testID, :question)";
+                $statement = $conn->prepare($query);
+                $statement->bindValue(":testID",$this->testID);
+                $statement->bindValue("question",$this->question);
+
+
+                
+                $statement->execute();
+                $this->id = $conn->lastInsertId();
+                echo("ADDED");
+                echo($this->id);
+                $statement->closeCursor();
+                return true;
+
+            }
+            catch(Exception $e){
+                echo($e->getMessage());
+                return false;
+            }
+        }
+        function delete()
+        {
+            global $conn;
+            try
+            {
+                echo("DELETING");
+
+                $query = "DELETE FROM questions WHERE question_id = :question_id";
+            
+            $statement = $conn->prepare($query);
+            $statement->bindValue("question_id",$this->id);
+            var_dump($statement->execute());
+            $statement->closeCursor();
+            return true;
+        }
+        catch(Exception $e)
+        {
+          return false;
+        }
+        }
+        static function questionsForTest($test_id)
+        {
+
+            global $conn;
+            $query = "SELECT * FROM questions WHERE test_id = :test_id";
+            $statement = $conn->prepare($query);
+            $statement->bindValue("test_id",$test_id);
+            $statement->execute();
+
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll();
+            $statement->closeCursor();
+            return $result;
+        
+        }
+    }
+
+    class Answer
+    {
+        function __construct($answer, $question, $isTrue)
+        {
+            $this->answer = $answer;
+            $this->question = $question;
+            $this->isTrue = $isTrue;
+
+        }
+        static function getObject($id)
+        {
+            $row = Answer::getRow($id);
+            if($row)
+            {
+                $object =  new Answer($row[2], $row[1]);
+                //$object->$id = $id;
+                $object->id = $id;
+                //echo("ID IS $object->id");
+                return $object;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        static function allRows()
+        {
+
+            global $conn;
+            $query = "SELECT * FROM questions";
+            $statement = $conn->prepare($query);
+            $statement->execute();
+
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll();
+            $statement->closeCursor();
+            return $result;
+        }
+        
+
+        static function answersForQuestion($question_id)
+        {
+
+            global $conn;
+            $query = "SELECT * FROM answers WHERE question_id = :id";
+            $statement = $conn->prepare($query);
+     
+            $statement->bindValue("id",$question_id);
+            $statement->execute();
+
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+            $result = $statement->fetchAll();
+            $statement->closeCursor();
+            return $result;
+        }
+        static function getRow($id)
+        {
+            global $conn;
+            $query = "SELECT * FROM questions WHERE question_id = :id";
+            $statement = $conn->prepare($query);
+            $statement->bindValue("id",$id);
+            $statement->execute();
+            $result = $statement->fetch();
+            $statement->closeCursor();
+           
+            return $result;    
+        }
+        function save()
+        {
+            global $conn;
+            
+            try
+            {
+                $query = "INSERT INTO answers (answer, question_id, answer_true) VALUES ( :answer, :questionID, :isTrue)";
+                $statement = $conn->prepare($query);
+                $statement->bindValue("answer",$this->answer);
+                $statement->bindValue("questionID",$this->question->id);
+                $statement->bindValue("isTrue",$this->isTrue);
+
+
+                //echo("ADDED");
+                $statement->execute();
+                $this->id = $conn->lastInsertId();
+                echo($this->id);
+                $statement->closeCursor();
+                return true;
+
+            }
+            catch(Exception $e){
+                echo($e->getMessage());
+                return false;
+            }
+        }
+        function delete()
+        {
+            try
+            {
+            $query = "DELETE FROM answers WHERE answer_id = :id";
             $statement = $conn->prepare($query);
             $statement->bindValues("id",$this->id);
             $statement->execute();
@@ -287,7 +549,7 @@
             return false;
         }
         }
-        
+
     }
 
 

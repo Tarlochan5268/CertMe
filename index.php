@@ -61,6 +61,15 @@
             }
             include("view/admin/all-categories.php");
         }
+        else if($action == "view-test")
+        {
+            if(!isset($_SESSION["admin"]))
+            {
+                header("Location: .?action=admin");
+            }
+            include("view/admin/view-test.php");
+        }
+        
         
     
     }
