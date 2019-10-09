@@ -49,7 +49,9 @@
                     <a class="nav-link" href=".?action=register-for-test">Register For Test</a>
                 </li>
                 
-               
+                <li class="nav-item">
+                    <a class="nav-link" href=".?action=profile">Profile</a>
+                </li>
               
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="controller/logout.php" >Logout</a>

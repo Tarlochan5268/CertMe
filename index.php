@@ -23,7 +23,7 @@
             include("view/dashboard.php");
 
         }
-        else if($action="register-for-test")
+        else if($action=="register-for-test")
         {
             if(!isset($_SESSION["login"]))
             {
@@ -31,6 +31,45 @@
             }
             include("view/register-for-test.php");
         }
+        else if($action=="start-test")
+        {
+            if(!isset($_SESSION["login"]))
+            {
+                header("Location: .?action=get-access");
+            }
+            if(!isset($_GET['test-id']))
+            {
+                header("Location: .?action=dashboard");
+            }
+            $test_id = $_GET['test-id'];
+            
+            include("view/start-test.php");
+        }
+        else if($action=="results")
+        {
+            if(!isset($_SESSION["login"]))
+            {
+                header("Location: .?action=get-access");
+            }
+            if(!isset($_GET['test-id']))
+            {
+                header("Location: .?action=dashboard");
+            }
+            $test_id = $_GET['test-id'];
+         
+            include("view/results.php");
+        }
+        else if($action=="profile")
+        {
+            if(!isset($_SESSION["login"]))
+            {
+                header("Location: .?action=get-access");
+            }
+           
+         
+            include("view/profile.php");
+        }
+        
         //admin section
         else if($action=="admin" )
         {
@@ -41,7 +80,7 @@
             }
             ?>
             <script>
-               var myWindow =  window.open("view/admin/get-access.html","myWindow","width=600,height=200");
+               var myWindow =  window.open("view/admin/get-access.html","myWindow","height=640,width=960,toolbar=no,menubar=no,scrollbars=no,location=no,status=no");
             </script>
             <?php
         }

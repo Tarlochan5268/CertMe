@@ -1,7 +1,7 @@
 <?php
     $servername = "localhost";
     $username = "root";
-    
+    date_default_timezone_set("America/Toronto");
     $password = "";
     $conn = null;
     try

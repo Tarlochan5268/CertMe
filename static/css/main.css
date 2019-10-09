@@ -112,3 +112,35 @@
    margin-bottom:5px; 
    color:red;
 }
+
+.test-board
+{
+   display: block;
+   padding: 3%;
+   box-shadow: 0 0  5px gray;
+   border-radius:15px;
+   margin:2% 0px;
+}
+
+.question
+{
+   display: block;
+   padding: 3%;
+   box-shadow: 0 0  5px gray;
+   border-radius:15px;
+   margin:2% 0px;
+   min-width: 100% !important;
+}
+
+
+.score
+{
+   text-align:center;
+   font-size: 5em;
+   
+
+}
+.score::after
+{
+   content: "%";
+}
