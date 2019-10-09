@@ -27,7 +27,16 @@
             <tr>
                     <td><?php echo($row["customer_id"]); ?></td>
                     <td><?php echo($row["first_name"]); ?>  <?php echo($row["last_name"]); ?></td>
-                    <td>TBA</td>
+                    <?php
+                    $id = $row["customer_id"];
+            $query = "SELECT * FROM register_test where status = 0 and customer_id = $id";
+             
+            $stmt = $conn->prepare($query);
+                $stmt->execute();
+                $res = $stmt->fetchAll();
+                $stmt->closeCursor();
+            ?>
+                    <td><?php echo(count($res));?></td>
                     <td><a href=".?action=view-customer&customer-id=<?php echo($row['customer_id']); ?>"><i class="fas fa-eye"></i></a></td>
             </tr>
             <?php        

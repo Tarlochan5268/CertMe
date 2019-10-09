@@ -112,15 +112,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Available Certifications</a>
+                    <a class="nav-link" href=".">Home <span class="sr-only">(current)</span></a>
                 </li>
                 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" >Disabled</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href=".?action=get-access" >Login / Sign Up</a>
                 </li>

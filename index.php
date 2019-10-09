@@ -118,7 +118,19 @@
         }
         else if($action == "all-users")
         {
+            if(!isset($_SESSION["admin"]))
+            {
+                header("Location: .?action=admin");
+            }
             include("view/admin/all-users.php");
+        }
+        else if($action=="view-customer")
+        {
+            if(!isset($_SESSION["admin"]))
+            {
+                header("Location: .?action=admin");
+            }
+            include("view/admin/view-customer.php");
         }
         
         

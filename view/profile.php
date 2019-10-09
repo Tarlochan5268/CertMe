@@ -1,4 +1,25 @@
 <div class="container-fluid">
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <input type="password" class="form-control" id="pass" placeholder="Change Password"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="chan">Change</button>
+      </div>
+    </div>
+  </div>
+</div>
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10 p-5">
@@ -66,8 +87,8 @@
 
 
             //password change
-            $("#change").click(function(){
-                
+            $("#chan").click(function(){
+            
                 if($("#pass").val()=="")
                 {
                     alert("Please Enter Password");
@@ -78,46 +99,28 @@
                 
                 $.ajax(
                     {
-                        url : 'controller/change-name.php',
+                        url : 'controller/change-password.php',
                         method : "GET",
                         data:{
-                            fname : fname,
-                            lname : lname,
+                            password : $("#pass").val(),
+                            
                         },
                         success:function(data)
                         {
                             console.log(data);
-                            $("name").text("Name: "+fname+" "+lname);
+                            //$("name").text("Name: "+fname+" "+lname);
+                            $("#exampleModal").modal("hide");
                         }
                     }
                 );
                 }
             }
             );
+         
             
 
         </script>
       
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            <input type="password" class="form-control" id="pass" placeholder="Change Password"/>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="change">Change</button>
-      </div>
-    </div>
-  </div>
-</div>
     </div>
 </div>

@@ -97,6 +97,7 @@
                 {
                     
                     alert("Please Enter All The Required Fields");
+                    return false;
                 }
             }
         </script>

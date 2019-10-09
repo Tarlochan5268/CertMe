@@ -47,7 +47,7 @@
                     else
                     {
                         echo("<p class='text-danger score'>$score </p><p>/100</p>"); 
-                        echo("<p>Unfortunately, You did not meet the criteria for passing this test. You cannot take test again.");
+                        echo("<p>Unfortunately, You did not meet the criteria for passing this test. Please Try again  on other day.");
                     }
                 ?>
             </div>
