@@ -23,6 +23,14 @@
             include("view/dashboard.php");
 
         }
+        else if($action="register-for-test")
+        {
+            if(!isset($_SESSION["login"]))
+            {
+                header("Location: .?action=get-access");
+            }
+            include("view/register-for-test.php");
+        }
         //admin section
         else if($action=="admin" )
         {
@@ -68,6 +76,10 @@
                 header("Location: .?action=admin");
             }
             include("view/admin/view-test.php");
+        }
+        else if($action == "all-users")
+        {
+            include("view/admin/all-users.php");
         }
         
         

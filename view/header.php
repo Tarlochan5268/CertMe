@@ -43,16 +43,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href=".?action=dashboard">Dashboard <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Register For Test</a>
+                    <a class="nav-link" href=".?action=register-for-test">Register For Test</a>
                 </li>
                 
                
-                <li class="nav-item">
-                    <a class="nav-link" href=".?action=get-access" >My Tests</a>
-                </li>
+              
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="controller/logout.php" >Logout</a>
                 </li>
@@ -88,7 +86,7 @@
                 </li>
                
                 <li class="nav-item">
-                    <a class="nav-link" href=".?action=get-access" >Users</a>
+                    <a class="nav-link" href=".?action=all-users" >Users</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="controller/admin/admin-logout.php" >Logout</a>

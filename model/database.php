@@ -58,7 +58,7 @@
         {
 
             global $conn;
-            $query = "SELECT * FROM customers";
+            $query = "SELECT * FROM customer";
             $statement = $conn->prepare($query);
             $statement->execute();
 
@@ -551,6 +551,16 @@
         }
 
     }
+
+
+
+
+
+
+
+
+
+    
 
 
 

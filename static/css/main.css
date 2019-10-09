@@ -86,3 +86,29 @@
 {
    background-color: lightseagreen;
 }
+
+.test
+{
+   display: block;
+   padding: 3%;
+   box-shadow: 0 0  5px gray;
+   border-radius:15px;
+   margin:2% 0px;
+
+}
+.test-heading
+{
+   font-size: 28px;
+}
+
+.test-description
+{
+   margin-top:5px; 
+   margin-bottom:5px; 
+}
+.test-time-count
+{
+   margin-top:5px; 
+   margin-bottom:5px; 
+   color:red;
+}
